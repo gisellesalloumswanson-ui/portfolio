@@ -701,6 +701,12 @@ html:not([data-theme]) .filter-chip.is-active {
   height: 150px;
   color: var(--color-primary);
   border-bottom: 1px solid var(--color-divider);
+  overflow: hidden;
+}
+
+.project-visual svg {
+  width: 100%;
+  height: 100%;
 }
 
 .pv-teal {

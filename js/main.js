@@ -48,21 +48,24 @@
   // Default to system preference; honor saved choice.
   var savedTheme = store.get(THEME_KEY);
   var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  var themeIsManual = false;
   applyTheme(savedTheme || (prefersDark ? "dark" : "light"));
 
   if (themeToggle) {
     themeToggle.addEventListener("click", function () {
       var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      themeIsManual = true;
       applyTheme(next);
       store.set(THEME_KEY, next);
     });
   }
 
-  // Follow live system changes unless the user chose explicitly.
+  // Follow live system changes only until the user chooses manually.
   if (!savedTheme && window.matchMedia) {
     window
       .matchMedia("(prefers-color-scheme: dark)")
       .addEventListener("change", function (e) {
+        if (themeIsManual || store.get(THEME_KEY)) return;
         applyTheme(e.matches ? "dark" : "light");
       });
   }
@@ -94,6 +97,17 @@
         navToggle.focus();
       }
     });
+
+    // Reset drawer state when the viewport crosses to desktop.
+    if (window.matchMedia) {
+      window
+        .matchMedia("(min-width: 860px)")
+        .addEventListener("change", function (e) {
+          if (e.matches && nav.classList.contains("open")) {
+            closeNav();
+          }
+        });
+    }
 
     function closeNav() {
       nav.classList.remove("open");
@@ -141,15 +155,15 @@
       body: [
         {
           type: "p",
-          text: "At Supermicro I built a repeatable co-selling motion with two national resellers — jointly qualifying accounts, aligning partner account managers with our technical teams, and sharing pipeline from first workshop to close."
+          text: "At Supermicro I co-developed opportunities with two national resellers — jointly qualifying accounts with partner account managers and our internal technical teams, and sharing pipeline from first conversation to close."
         },
         {
           type: "ul",
           items: [
             "$15M in joint pipeline developed with CDW and Insight",
             "$3M in closed revenue from shared opportunities",
-            "Joint account planning and solution workshops with partner SEs",
-            "Note: co-selling contribution — reseller program ownership was a separate function"
+            "Shared opportunity development with partner account managers and internal technical teams",
+            "Co-selling contribution — formal reseller-program ownership was a separate function"
           ]
         }
       ]
@@ -178,7 +192,7 @@
       body: [
         {
           type: "p",
-          text: "On GSCS Gulf defense contracts I carried responsibility for program budgets, delivery milestones, and customer acceptance — where a missed milestone is not a quarter-end problem but a mission problem."
+          text: "On GSCS Gulf defense contracts my responsibilities included program budgets, delivery milestones, and customer acceptance — where a missed milestone is not a quarter-end problem but a mission problem."
         },
         {
           type: "ul",
@@ -196,7 +210,7 @@
       body: [
         {
           type: "p",
-          text: "Moving from hardware to data-center infrastructure management (DCIM) software meant selling a new category to familiar buyers — translating hardware credibility into a software-sales motion."
+          text: "Illustrative work sample. Moving from hardware to data-center infrastructure management (DCIM) software means selling a new category to familiar buyers — translating hardware credibility into a software-sales motion. This is representative of the motion I bring, not a completed engagement."
         },
         {
           type: "ul",

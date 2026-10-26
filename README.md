@@ -43,8 +43,8 @@ Then open http://localhost:8000. (Opening `index.html` directly also works for a
 ## Make it yours
 
 - **Copy**: all text lives in `index.html`. Project detail content is in the `PROJECTS` object at the top of `js/main.js`.
-- **Email**: search for `hello@yourdomain.com` in `index.html` (3 places) and replace with your real address.
-- **Links**: the LinkedIn and GitHub links in the Contact section are placeholders — replace the `href` values with your profile URLs.
+- **Email**: search for `hello@yourdomain.com` in `index.html` (3 places) and replace with your real address. Until you do, the form and the visible email are placeholders.
+- **Links**: social links are commented out in the Contact section of `index.html` — add them back with your real profile URLs.
 - **Photos**: `assets/hero-infra.webp` and `assets/about-network.webp` are AI-generated placeholders sized 1536×1024 and 1024×768. Swap in your own photos or artwork with the same filenames (or update the paths).
 - **Colors / fonts**: everything is driven by CSS custom properties at the top of `css/styles.css` (`--color-primary`, etc., for both `[data-theme="light"]` and `[data-theme="dark"]`). Fonts are Cabinet Grotesk + Satoshi, loaded from Fontshare.
 
@@ -62,7 +62,7 @@ and set it to your form service URL, for example with Formspree:
 2. Set `FORM_ENDPOINT` to your form's endpoint, e.g. `"https://formspree.io/f/abcdwxyz"`.
 3. Redeploy — submissions now arrive in your inbox, and the form shows real success/error states.
 
-Getform, Basin, and Web3Forms work the same way (paste their endpoint URL). This approach keeps the site fully static — no backend required.
+Only Formspree's setup is documented here; other form services that accept JSON POST submissions may work similarly, but test them before relying on them. This approach keeps the site fully static — no backend required.
 
 ## Deploy
 
