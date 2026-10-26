@@ -43,7 +43,7 @@ Then open http://localhost:8000. (Opening `index.html` directly also works for a
 ## Make it yours
 
 - **Copy**: all text lives in `index.html`. Project detail content is in the `PROJECTS` object at the top of `js/main.js`.
-- **Email**: search for `hello@yourdomain.com` in `index.html` (3 places) and replace with your real address. Until you do, the form and the visible email are placeholders.
+- **Email**: the site shows gisellemack888@gmail.com — to change it, search for that address in `index.html` (2 places).
 - **Links**: social links are commented out in the Contact section of `index.html` — add them back with your real profile URLs.
 - **Photos**: `assets/hero-infra.webp` and `assets/about-network.webp` are AI-generated placeholders sized 1536×1024 and 1024×768. Swap in your own photos or artwork with the same filenames (or update the paths).
 - **Colors / fonts**: everything is driven by CSS custom properties at the top of `css/styles.css` (`--color-primary`, etc., for both `[data-theme="light"]` and `[data-theme="dark"]`). Fonts are Cabinet Grotesk + Satoshi, loaded from Fontshare.
