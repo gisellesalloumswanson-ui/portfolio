@@ -5,18 +5,25 @@
 (function () {
   "use strict";
 
-  /* ---------- Storage (safe in sandboxed iframes) ---------- */
+  /* ---------- Storage (theme persistence via cookies) ----------
+     Cookies survive across visits on GitHub Pages / Vercel and degrade
+     gracefully in sandboxed preview iframes. */
   var store = {
     get: function (key) {
       try {
-        return window.localStorage.getItem(key);
+        var match = document.cookie.match(
+          new RegExp("(?:^|;\\s*)" + key + "=([^;]*)")
+        );
+        return match ? decodeURIComponent(match[1]) : null;
       } catch (e) {
         return null;
       }
     },
     set: function (key, value) {
       try {
-        window.localStorage.setItem(key, value);
+        document.cookie =
+          key + "=" + encodeURIComponent(value) +
+          ";path=/;max-age=31536000;SameSite=Lax";
       } catch (e) {
         /* sandboxed iframe — keep in-memory only */
       }
