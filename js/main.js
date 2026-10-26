@@ -66,17 +66,39 @@
 
   if (navToggle && nav) {
     navToggle.addEventListener("click", function () {
-      var open = nav.classList.toggle("open");
-      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      if (nav.classList.contains("open")) {
+        closeNav();
+      } else {
+        openNav();
+      }
     });
 
     // Close drawer when a link is chosen.
     nav.addEventListener("click", function (e) {
       if (e.target.closest("a")) {
-        nav.classList.remove("open");
-        navToggle.setAttribute("aria-expanded", "false");
+        closeNav();
       }
     });
+
+    // Close drawer with Escape.
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && nav.classList.contains("open")) {
+        closeNav();
+        navToggle.focus();
+      }
+    });
+
+    function closeNav() {
+      nav.classList.remove("open");
+      navToggle.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+    }
+
+    function openNav() {
+      nav.classList.add("open");
+      navToggle.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
+    }
   }
 
   /* ---------- Scroll reveal ---------- */
@@ -85,7 +107,9 @@
     var io = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
+          // Reveal when entering the viewport, or when the element has been
+          // scrolled past (e.g. after an anchor-link jump).
+          if (entry.isIntersecting || entry.boundingClientRect.top < 0) {
             entry.target.classList.add("is-visible");
             io.unobserve(entry.target);
           }

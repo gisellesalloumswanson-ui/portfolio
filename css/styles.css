@@ -390,10 +390,15 @@ html[data-theme="light"] .icon-sun { display: block; }
 
 /* Mobile nav drawer */
 @media (max-width: 859px) {
+  /* The header's backdrop-filter makes it the containing block for fixed
+     children, so anchor the drawer to the header instead of the viewport. */
   .site-nav.open {
     display: flex;
-    position: fixed;
-    inset: 68px 0 auto 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: calc(100dvh - 68px);
     flex-direction: column;
     align-items: stretch;
     gap: 0;
@@ -401,6 +406,7 @@ html[data-theme="light"] .icon-sun { display: block; }
     border-bottom: 1px solid var(--color-divider);
     box-shadow: var(--shadow-lg);
     padding: var(--space-4) var(--space-6) var(--space-8);
+    overflow-y: auto;
   }
 
   .site-nav.open ul {
@@ -1025,6 +1031,10 @@ html:not([data-theme]) .field-error {
   display: grid;
   place-items: center;
   padding: var(--space-6);
+}
+
+.modal-backdrop[hidden] {
+  display: none;
 }
 
 .modal-backdrop.is-open {
